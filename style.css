@@ -389,3 +389,20 @@ input[type=range]:active::-webkit-slider-thumb {
   height: 30px;
   width: 30px;
 }
+
+@media (orientation: portrait) {
+  div.wrapper {
+    flex-direction: column;
+    justify-content: center;
+  }  
+
+  div.wrapper > div {
+    width: 90%;
+    margin: 25px 0;
+  }
+
+  div.css-output {
+    width: 100%;
+  }
+
+}

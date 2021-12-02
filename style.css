@@ -1,0 +1,391 @@
+:root {
+  --lighter_black: #000814;
+  --dark_blue1: #001D3D;
+  --dark_blue2: #003566;
+  --yellow1: #FFC300;
+  --yellow2: #FFD60A;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Roboto', sans-serif;
+  ;
+}
+
+body {
+  background-color: whitesmoke;
+}
+
+header {
+  background-color: var(--dark_blue1);
+  color: white;
+  width: 100%;
+  height: 80px;
+  line-height: 80px;
+  text-align: center;
+  font-size: 25px;
+}
+
+main {
+  width: 100%;
+  height: calc(100vh - 80px);
+}
+
+div.wrapper {
+  padding: 150px 100px 100px 100px;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+div.manuals,
+div.display {
+  height: 600px;
+  background-color: white;
+  border-radius: 15px;
+  margin: 0 25px;
+}
+
+div.manuals {
+  width: calc(30% - 50px);
+  display: flex;
+  flex-direction: column;
+}
+
+div.display {
+  width: calc(70% - 50px);
+  position: relative;
+}
+
+div.output-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+div.css-output {
+  width: calc(70% - 50px);
+  background-color: white;
+  margin: 50px 25px 50px 25px;
+  min-height: 250px;
+  border-radius: 15px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.css-output > textarea {
+  outline: none;
+  border: 1px solid whitesmoke;
+  background-color: whitesmoke;
+  border-radius: 10px;
+  min-height: 100px;
+  min-width: 90%;
+  max-height: 100px;
+  max-width: 90%;
+  font-size: 18px;
+  line-height: 25px;
+  display: none;
+  padding: 10px;
+}
+
+.css-output > span {
+  font-size: 20px;
+  font-weight: 500;
+  text-align: center;
+  margin: 20px 0;
+}
+
+.css-output > button {
+  width: 150px;
+  height: 50px;
+  border: 2px solid var(--dark_blue1);
+  border-radius: 5px;
+  background-color: #fff;
+  color: var(--dark_blue1);
+  transition: .4s;
+  text-transform: uppercase;
+  font-size: 16px;
+  margin: 25px 0 25px;
+}
+
+.css-output > button.scaled {
+  transform: scale(.8);
+}
+
+.css-output > button:hover {
+  background-color: var(--dark_blue1);
+  color: white;
+}
+
+button.copy-button {
+  display: none;
+}
+
+span.tooltip {
+  background-color: var(--dark_blue1);
+  color: white;
+  width: 100px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: block;
+  position: absolute;
+  bottom: 75px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  display: none;
+  animation: tooltip .6s;
+  opacity: 0;
+}
+
+span.tooltip::after {
+  content:"";
+  border-left: 10px solid transparent;
+  border-right: 10px solid transparent;
+  border-top: 10px solid var(--dark_blue1);
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+@keyframes tooltip {
+  0% {
+    opacity: 0;
+    bottom: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  50% {
+    bottom: 90px;
+  }
+  75% {
+    bottom: 75px;
+  }
+  100% {
+    bottom: 75px;
+    opacity: 1;
+  }
+}
+
+/* LOADING ANIMATION */
+.lds-ring {
+  display: none;
+  position: relative;
+  width: 50px;
+  height: 50px;
+  transform: scale(1);
+  transition: .5s;
+}
+
+.lds-ring > div {
+  box-sizing: border-box;
+  display: block;
+  position: absolute;
+  width: 50px;
+  height: 50px;
+  border: 6px solid var(--yellow1);
+  border-radius: 50%;
+  animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite, transparency 3s both;
+  border-color: var(--yellow1) transparent transparent transparent;
+}
+.lds-ring div:nth-child(1) {
+  animation-delay: -0.45s;
+}
+.lds-ring div:nth-child(2) {
+  animation-delay: -0.3s;
+}
+.lds-ring div:nth-child(3) {
+  animation-delay: -0.15s;
+}
+@keyframes lds-ring {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes transparency {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}
+
+div.block {
+  width: 300px;
+  height: 300px;
+  background-color: white;
+  position: absolute;
+  top: 50%; 
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 15px;
+  box-shadow: 0 0 25px 0 gray;
+}
+
+.manuals>h2 {
+  font-weight: 400;
+  text-align: center;
+  margin-top: 20px;
+}
+
+.top {
+  display: flex;
+  justify-content: space-around;
+}
+
+.top>span,
+.top>input {
+  margin-top: 25px;
+}
+
+.top>span {
+  font-size: 18px;
+  line-height: 40px;
+}
+
+.bottom {
+  display: flex;
+  justify-content: center;
+}
+
+input[type="number"] {
+  border: 1px solid white;
+  border-radius: 20%;
+  background-color: whitesmoke;
+  width: 60px;
+  height: 40px;
+  text-align: center;
+  font-size: 18px;
+  line-height: 40px;
+  color: black;
+}
+
+input[type="color"] {
+  border: none;
+  width: 60px;
+  height: 40px;
+  background-color: white;
+}
+
+input[type="color"]::-webkit-color-swatch {
+  border: none;
+  border-radius: 8px;
+  padding: 0;
+}
+
+/* INPUT RANGE */
+/* RESET */
+
+input[type="range"] {
+  width: 65%;
+  margin: 10px 0;
+  background: transparent;
+  -webkit-appearance: none;
+}
+
+input[type=range]:focus {
+  outline: none;
+}
+
+/* STYLING FOR CHROME */
+
+input[type=range]::-webkit-slider-runnable-track {
+  background: whitesmoke;
+  border: 0px;
+  border-radius: 2px;
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+}
+
+input[type=range]::-webkit-slider-thumb {
+  margin-top: -8.5px;
+  width: 25px;
+  height: 25px;
+  background: var(--yellow1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  -webkit-appearance: none;
+}
+
+
+/* STYLING FOR MOZILLA */
+
+input[type=range]::-moz-range-track {
+  background: whitesmoke;
+  border: none;
+  border-radius: 2px;
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+}
+
+input[type=range]::-moz-range-thumb {
+  width: 25px;
+  height: 25px;
+  background: var(--yellow1);
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+}
+
+/* STYLING FOR IE */
+
+
+input[type=range]::-ms-track {
+  background: transparent;
+  border-color: transparent;
+  border-width: 9.3px 0;
+  color: transparent;
+  width: 100%;
+  height: 8.4px;
+  cursor: pointer;
+}
+
+input[type=range]::-ms-fill-lower {
+  background: whitesmoke;
+  border: none;
+  border-radius: 2.6px;
+}
+
+input[type=range]::-ms-fill-upper {
+  background: whitesmoke;
+  border: none;
+  border-radius: 2.6px;
+}
+
+input[type=range]::-ms-thumb {
+  width: 25px;
+  height: 25px;
+  background: rgba(255, 195, 0, 1);
+  border: 1px solid rgba(0, 0, 0, 0);
+  border-radius: 50px;
+  cursor: pointer;
+  margin-top: 0px;
+  /*Needed to keep the Edge thumb centred*/
+}
+
+input[type=range]:focus::-ms-fill-lower {
+  background: #3071a9;
+}
+
+input[type=range]:focus::-ms-fill-upper {
+  background: #367ebd;
+}
+
+input[type=range]:active::-webkit-slider-thumb {
+  height: 30px;
+  width: 30px;
+}

@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="pl">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <title>Box Shadow Generator</title>
+</head>
+
+<body>
+    <header>Box shadow generator</header>
+    <main>
+        <div class="wrapper">
+            <div class="manuals">
+                <h2>
+                    CSS box-shadow properties
+                </h2>
+                <div class="property">
+                    <div class="top">
+                        <span>Horizontal</span>
+                        <input type="number" name="horizontal" value="0">
+                    </div>
+                    <div class="bottom">
+                        <input type="range" value="0" min="-100" max="100">
+                    </div>
+                </div>
+                <div class="property">
+                    <div class="top">
+                        <span>Vertical</span>
+                        <input type="number" name="vertical" value="0">
+                    </div>
+                    <div class="bottom">
+                        <input type="range" min="-100" max="100" value="0">
+                    </div>
+                </div>
+                <div class="property">
+                    <div class="top">
+                        <span>Blur</span>
+                        <input type="number" name="blur" value="25">
+                    </div>
+                    <div class="bottom">
+                        <input type="range" min="0" max="100" value="25">
+                    </div>
+                </div>
+                <div class="property">
+                    <div class="top">
+                        <span>Spread</span>
+                        <input type="number" name="spread" value="0">
+                    </div>
+                    <div class="bottom">
+                        <input type="range" min="-100" max="100" value="0">
+                    </div>
+                </div>
+                <div class="property">
+                    <div class="top">
+                        <span>Color</span>
+                        <input type="color" name="color" value="rgba(5,0,0,1)">
+                    </div>
+                </div>
+            </div>
+            <div class="display">
+                <div class="block"></div>
+            </div>
+            <div class="output-wrapper">
+                <div class="css-output">
+                    <span>Take your CSS code</span>
+                    <button class="load-button">Generate CSS</button>
+                    <div class="lds-ring">
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                        <div></div>
+                    </div>
+                    <textarea name="css-output"></textarea>
+                    <span class="tooltip">Copied!</span>
+                    <button class="copy-button">Copy</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+        integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script>
+        function copyToClipboard() {
+            let textarea = $("textarea");
+            textarea.select();
+            document.execCommand("copy");
+        }
+
+        function styleShadow() {
+            let props = new Array(
+                $("input[name='horizontal']").val(),
+                $("input[name='vertical']").val(),
+                $("input[name='blur']").val(),
+                $("input[name='spread']").val(),
+                $("input[name='color']").val()
+            );
+
+            $("div.block").css("box-shadow",
+                props[0] + "px " +
+                props[1] + "px " +
+                props[2] + "px " +
+                props[3] + "px" +
+                props[4]
+            );
+
+            let propertiesString = props[0] +
+                "px " + props[1] + "px " + props[2] + "px " +
+                props[3] + "px " + props[4] + ";";
+
+            $(".css-output > textarea").val("box-shadow: " + propertiesString +
+                "\n -webkit-box-shadow: " + propertiesString +
+                "\n -moz-box-shadow: " + propertiesString);
+        }
+
+        $(function () {
+            styleShadow();
+            $("input[type='range']").on("input", function () {
+                let rangeValue = $(this).val();
+                let parent = $(this).parents(".property");
+                parent.find("input[type='number']").val(rangeValue);
+
+                styleShadow();
+
+            })
+
+            $("input[type='number']").on("input", function () {
+                let numberValue = $(this).val();
+                let parent = $(this).parents(".property");
+                parent.find(".bottom > input").val(numberValue);
+                styleShadow();
+            })
+
+            $("input[type='color']").on("input", function () {
+                styleShadow();
+            })
+
+            $("button.load-button").on("click", function () {
+                $(this).addClass("scaled").hide(150);
+                setTimeout(function () {
+                    $(".lds-ring").css("display", "inline-block");
+                }, 400);
+
+                setTimeout(function () {
+                    $(".lds-ring").css("display", "none");
+                    $("textarea").css("display", "block");
+                    $(".copy-button").css("display", "block");
+                }, 2200);
+            })
+
+            $("button.copy-button").on("click", function () {
+                copyToClipboard();
+                $("span.tooltip").css("display", "block").css("opacity", "1");
+                setTimeout(function () {
+                    $("span.tooltip").animate({
+                        opacity: 0
+                    }, 600).hide(600);
+
+                }, 2200)
+            })
+        })
+    </script>
+</body>
+
+</html>

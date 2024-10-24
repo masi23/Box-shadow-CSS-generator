@@ -1,0 +1,2 @@
+# Ignoruj pliki CSS w statystykach języków
+*.css linguist-vendored
